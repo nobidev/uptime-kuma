@@ -190,7 +190,7 @@ exports.pingAsync = function (
             sourceAddr: sourceAddr,
             numeric: numeric,
             packetSize: size,
-            deadline: deadline,
+            deadline: Math.max(deadline, 1),
             timeout: timeout
         }).then((res) => {
             // If ping failed, it will set field to unknown
