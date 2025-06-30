@@ -1786,7 +1786,7 @@ message HealthCheckResponse {
                                 // set to default
                                 this.monitor.timeout = 10;
                             } else {
-                                this.monitor.timeout = ~~(this.monitor.interval * 8) / 10;
+                                this.monitor.timeout = Math.max(~~(this.monitor.interval * 8) / 10, 1);
                             }
                         }
                     } else {
@@ -2007,6 +2007,10 @@ message HealthCheckResponse {
         calculatePingInterval() {
             // If monitor.type is not "ping", simply return the configured interval
             if (this.monitor.type !== "ping") {
+                return this.monitor.interval;
+            }
+
+            if (this.monitor.interval === 1 && this.monitor.timeout  >= 1) {
                 return this.monitor.interval;
             }
 

@@ -1527,7 +1527,7 @@ class Monitor extends BeanModel {
             if (this.timeout) {
                 const pingGlobalTimeout = Math.round(Number(this.timeout));
 
-                if (pingGlobalTimeout < this.ping_per_request_timeout || pingGlobalTimeout < PING_GLOBAL_TIMEOUT_MIN || pingGlobalTimeout > PING_GLOBAL_TIMEOUT_MAX) {
+                if ((pingGlobalTimeout < this.ping_per_request_timeout && this.pingGlobalTimeout !== 1 && this.timeout !== 1) || pingGlobalTimeout < PING_GLOBAL_TIMEOUT_MIN || pingGlobalTimeout > PING_GLOBAL_TIMEOUT_MAX) {
                     throw new Error(`Timeout must be between ${PING_GLOBAL_TIMEOUT_MIN} and ${PING_GLOBAL_TIMEOUT_MAX} seconds (default: ${PING_GLOBAL_TIMEOUT_DEFAULT})`);
                 }
 
